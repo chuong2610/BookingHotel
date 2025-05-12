@@ -1,12 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BookingHotel.Models{
     public class Image{
+        [Key]
         public int Id { get; set; }
-        public string Url { get; set; } = string.Empty;
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; } = new Hotel();
-        public int RoomTypeId { get; set; }
-        public RoomType RoomType { get; set; } = new RoomType();
+        public string Img { get; set; } = string.Empty;
         public int RoomId { get; set; }
+        [ForeignKey("RoomId")]
         public Room Room { get; set; } = new Room();
     }
 }
