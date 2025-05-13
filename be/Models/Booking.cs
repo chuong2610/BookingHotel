@@ -10,7 +10,7 @@ namespace BookingHotel.Models
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public DateTime BookingDate { get; set; }
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string Status { get; set; } = string.Empty;
         public Paymet Paymet { get; set; } = new Paymet();
         public Review Review { get; set; } = new Review();
