@@ -1,7 +1,9 @@
 using BookingHotel.Data;
 using BookingHotel.Interfaces;
+using BookingHotel.Models;
 using BookingHotel.Models.DTO;
 using BookingHotel.Services;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +18,15 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService>();
-
+// builder.Services.Configure<FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
+builder.Services.Configure<FormOptions>(option =>
+{ 
+    option.MultipartBodyLengthLimit = builder.Configuration.GetValue<long>("FileUploadSettings:MaxFileSize");
+});
+var settings = builder.Configuration
+    .GetSection("FileUploadSettings")
+    .Get<FileUploadSettings>()!;
+builder.Services.AddSingleton(settings);   
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
