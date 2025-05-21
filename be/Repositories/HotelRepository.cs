@@ -13,7 +13,7 @@ namespace BookingHotel.Models.DTO
             _context = context;
         }
 
-        public async Task<Hotel> GetHotel(){
+        public async Task<Hotel?> GetHotel(){
             return await _context.Hotels.FirstOrDefaultAsync();
         }
     }

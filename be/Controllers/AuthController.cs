@@ -1,5 +1,6 @@
 using BookingHotel.Interfaces;
 using BookingHotel.Models.Request;
+using BookingHotel.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingHotel.Controllers
@@ -31,8 +32,34 @@ namespace BookingHotel.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
+        }
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail(string token)
+        {
+            try
+            {
+                var verifiedUser = await _authService.VerifyEmailAsync(token);
+                if (verifiedUser == null)
+                {
+                    return NotFound("Invalid or expired token.");
+                }
+                return Ok("Email verified successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterRequest registerRequest)
+        {
+            try{
+            var createdUser = await _authService.CreateUserAsync(registerRequest);
+            return Ok(createdUser);
+            }catch(Exception ex){
+                return BadRequest(ex.Message);
+            }
+           
         }
     }
 }
