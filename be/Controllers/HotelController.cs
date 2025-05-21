@@ -1,7 +1,8 @@
-namespace BookingHotel.Controllers{
-    using BookingHotel.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
+using BookingHotel.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
+namespace BookingHotel.Controllers
+{
     [Route("api/[controller]")]
     [ApiController]
     public class HotelController : ControllerBase

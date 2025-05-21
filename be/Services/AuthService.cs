@@ -3,15 +3,22 @@ using System.Security.Claims;
 using System.Text;
 using BookingHotel.Interfaces;
 using BookingHotel.Models;
+using BookingHotel.Models.Request;
 using Microsoft.IdentityModel.Tokens;
+
 
 
 namespace BookingHotel.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IConfiguration? _configuration;
-
+        private readonly IConfiguration _configuration;
+        private readonly IUserRepository _userRepository;
+        public AuthService(IConfiguration configuration, IUserRepository userRepository)
+        {
+            _configuration = configuration;
+            _userRepository = userRepository;
+        }
         private string GenerateToken(User user)
         {
             var securityKey = _configuration["Jwt:Key"];
@@ -30,6 +37,17 @@ namespace BookingHotel.Services
                  signingCredentials: credentials
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<string> Login(LoginRequest loginRequest)
+        {
+            // Validate the user credentials
+            var user =await _userRepository.GetUserByEmailAsync(loginRequest.Email);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
+            {
+                return null;
+            }
+            return  GenerateToken(user);
         }
     }
 }
