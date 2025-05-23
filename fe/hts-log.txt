@@ -1,0 +1,40 @@
+HTTrack3.49-2+htsswf+htsjava launched on Thu, 08 May 2025 08:58:24 at https://htmldesigntemplates.com/html/hotux/bootstrap5/index.html?fbclid=IwY2xjawKI7mxleHRuA2FlbQIxMABicmlkETFDMkt1U1lBbDhYVTg3N2dJAR5h1a9eXPGKvnimI0ulRGVN_Hz44IqIZJjgI767hfSUm40IH8OeVxvGHJdJWQ_aem_UhG2h0DfRJONO7oLjTbAcg +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://htmldesigntemplates.com/html/hotux/bootstrap5/index.html?fbclid=IwY2xjawKI7mxleHRuA2FlbQIxMABicmlkETFDMkt1U1lBbDhYVTg3N2dJAR5h1a9eXPGKvnimI0ulRGVN_Hz44IqIZJjgI767hfSUm40IH8OeVxvGHJdJWQ_aem_UhG2h0DfRJONO7oLjTbAcg -O1 "F:\bookingHotel1" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/images/bg-icon-1.png (from https://htmldesigntemplates.com/html/hotux/bootstrap5/css/default.css)
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/images/bg-icon-2.png (from https://htmldesigntemplates.com/html/hotux/bootstrap5/css/default.css)
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/about-us.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/index-3.html)
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/blog-home.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/confirmation.html)
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/shop-detail (from https://htmldesigntemplates.com/html/hotux/bootstrap5/shop.html)
+09:01:08	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/images/gallery/thumb1-1.jpg (from https://htmldesigntemplates.com/html/hotux/bootstrap5/cart.html)
+09:01:20	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/assets/images/favicon.png (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/customer-list.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/customer-block.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/addproduct.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/products-list.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/order-manage.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/order-history.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/order-detail.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/order-invoice.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/delivery-list.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/delivery-person.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/payment.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/invent-report.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/stock-report.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/payment-report.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/customer-report.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/billing.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/profile.html)
+09:01:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/department.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/gallery.html)
+09:01:29	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/assets/images/trending2.jpg (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/popup-ads.html)
+09:06:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/addmarquee.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/top-servicebar.html)
+09:06:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/adddoctor.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/top-servicebar.html)
+09:06:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/doctors-list.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/top-servicebar.html)
+09:06:22	Error: 	"Not Found" (404) at link https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/chat.html (from https://htmldesigntemplates.com/html/hotux/bootstrap5/dashboard/top-servicebar.html)
+
+HTTrack Website Copier/3.49-2 mirror complete in 8 minutes 3 seconds : 846 links scanned, 816 files written (43549576 bytes overall) [36179632 bytes received at 74906 bytes/sec], 13027862 bytes transferred using HTTP compression in 671 files, ratio 24%, 105.8 requests per connection
+(29 errors, 0 warnings, 0 messages)
