@@ -3,7 +3,8 @@ const API_URL = 'http://localhost:5178/api';
 
 
     
-    function handleLogin() {
+    async function handleLogin(event) {
+        event.preventDefault();
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
         
@@ -11,7 +12,7 @@ const API_URL = 'http://localhost:5178/api';
         
         // Gọi API đăng nhập
         $.ajax({
-            url: `${API_URL}/auth/login`,
+            url: `${API_URL}/Auth/login`,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ email, password }),
@@ -39,7 +40,7 @@ async function handleHeaderLogin(event) {
     console.log('Attempting header login with:', { email, password });
 
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
+        const response = await fetch(`${API_URL}/Auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

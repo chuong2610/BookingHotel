@@ -1,11 +1,14 @@
 using BookingHotel.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingHotel.Data{
-    public class ApplicationDBContext : DbContext{
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options): base(options){
+namespace BookingHotel.Data
+{
+    public class ApplicationDBContext : DbContext
+    {
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
+        {
         }
-        
+
 
         public DbSet<BookingHotel.Models.User> Users { get; set; }
         public DbSet<BookingHotel.Models.Hotel> Hotels { get; set; }
@@ -18,14 +21,14 @@ namespace BookingHotel.Data{
         public DbSet<BookingHotel.Models.Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<Review>()
-        .HasOne(r => r.User)
-        .WithMany(u => u.Reviews)
-        .OnDelete(DeleteBehavior.NoAction);  
+        {
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.Reviews)
+                .OnDelete(DeleteBehavior.NoAction);
 
-    base.OnModelCreating(modelBuilder);
-}
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

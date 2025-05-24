@@ -51,12 +51,27 @@ builder.Services.AddAuthentication(options => {
     };
 });
 
-builder.Services.AddAuthorization(option => {
-    option.AddPolicy("AdminOnly", policy => {
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AdminOnly", policy =>
+    {
         policy.RequireAuthenticatedUser();
         policy.RequireClaim("role", "admin");
     });
-        
+
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder
+                .WithOrigins("http://127.0.0.1:5501") // URL của frontend
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
 });
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -89,6 +104,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("AllowSpecificOrigins");
 
 var summaries = new[]
 {
