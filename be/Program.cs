@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using BookingHotel.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,12 +51,27 @@ builder.Services.AddAuthentication(options => {
     };
 });
 
-builder.Services.AddAuthorization(option => {
-    option.AddPolicy("AdminOnly", policy => {
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AdminOnly", policy =>
+    {
         policy.RequireAuthenticatedUser();
         policy.RequireClaim("role", "admin");
     });
-        
+
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder
+                .WithOrigins("http://127.0.0.1:5501") // URL của frontend
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
 });
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -62,6 +79,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailService,EmailService>();
 // builder.Services.Configure<FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
 builder.Services.Configure<FormOptions>(option =>
 { 
@@ -84,6 +104,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("AllowSpecificOrigins");
 
 var summaries = new[]
 {

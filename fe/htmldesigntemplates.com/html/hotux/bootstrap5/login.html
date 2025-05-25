@@ -27,7 +27,49 @@
       <div id="status"></div>
     </div>
     <!-- Preloader Ends -->
-
+    <div class="modal fade" id="login" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content login-content">
+          <div class="login-image">
+            <img src="images/logo-black.png" alt="image" />
+          </div>
+          <h3>Hello!Sign into your account</h3>
+          <form id="headerLoginForm">
+            <div class="form-group">
+              <input type="email" placeholder="Enter email address" id="headerEmail" />
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Enter password" id="headerPassword" />
+            </div>
+            <div class="form-group form-checkbox">
+              <input type="checkbox" /> Remember Me
+              <a href="#">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-login">Đăng nhập</button>
+            
+          </form>
+          <div class="form-btn">
+            <!-- <input type="submit" value="LOGIN" class="btn btn-orange"> -->
+            <p>Need an Account?<a href="#"> Create your Hotux account</a></p>
+          </div>
+          
+          <ul class="social-links">
+            <li>
+              <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <!-- header start -->
     <header class="main_header_area">
       <div class="header-content">
@@ -302,22 +344,23 @@
           <div class="col-lg-6 col-md-6">
             <div class="login-content pad-0">
               <h3>Hello! Sign into your account</h3>
-              <form>
+              <form id="loginForm">
                 <div class="form-group">
-                  <input type="email" placeholder="Enter email address" />
+                  <input type="email" placeholder="Enter email address" id="loginEmail" />
                 </div>
                 <div class="form-group">
-                  <input type="password" placeholder="Enter password" />
+                  <input type="password" placeholder="Enter password" id="loginPassword" />
                 </div>
                 <div class="form-group form-checkbox">
                   <input type="checkbox" /> Remember Me
                   <a href="#">Forgot password?</a>
                 </div>
+                <button type="submit" class="btn btn-primary" id="btn-login">Đăng nhập</button>
               </form>
-              <div class="form-btn">
+              <!-- <div class="form-btn">
                 <a href="#" class="btn btn-orange">LOGIN</a>
                 <p>Need an Account?<a href="#"> Create your Hotux account</a></p>
-              </div>
+              </div> -->
               <ul class="social-links">
                 <li>
                   <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -495,47 +538,6 @@
     </div>
     <!-- Back to top ends -->
 
-    <div class="modal fade" id="login" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content login-content">
-          <div class="login-image">
-            <img src="images/logo-black.png" alt="image" />
-          </div>
-          <h3>Hello!Sign into your account</h3>
-          <form>
-            <div class="form-group">
-              <input type="email" placeholder="Enter email address" />
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Enter password" />
-            </div>
-            <div class="form-group form-checkbox">
-              <input type="checkbox" /> Remember Me
-              <a href="#">Forgot password?</a>
-            </div>
-          </form>
-          <div class="form-btn">
-            <a href="#" class="btn btn-orange">LOGIN</a>
-            <p>Need an Account?<a href="#"> Create your Hotux account</a></p>
-          </div>
-          <ul class="social-links">
-            <li>
-              <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <div class="modal fade" id="register" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content login-content">
@@ -543,23 +545,25 @@
             <img src="images/logo-black.png" alt="image" />
           </div>
           <h3>Awesome! Create a Hotux Account</h3>
-          <form>
+          <form id="registerForm" >
             <div class="form-group">
-              <input type="text" placeholder="Enter username" />
+              <input type="text" placeholder="Enter username" id="registerName" required autocomplete="name" />
             </div>
             <div class="form-group">
-              <input type="email" placeholder="Enter email address" />
+              <input type="email" placeholder="Enter email address" id="registerEmail" required autocomplete="email" />
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Enter password" />
+              <input type="password" placeholder="Enter password" id="registerPassword" required autocomplete="new-password" />
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Confirm password" />
+              <input type="password" placeholder="Confirm password" id="confirmPassword" required autocomplete="new-password" />
+            </div>
+            <div id="verificationMessage" style="display: none;"></div>
+
+            <div class="form-btn" >
+              <button type="submit" class="btn btn-orange">SIGN UP</button>
             </div>
           </form>
-          <div class="form-btn">
-            <a href="#" class="btn btn-orange">SIGN UP</a>
-          </div>
           <ul class="social-links">
             <li>
               <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -579,12 +583,13 @@
     </div>
 
     <!-- *Scripts* -->
-    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugin.js"></script>
     <script src="js/main.js"></script>
     <script src="js/custom-nav.js"></script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c55a792a5309f4',t:'MTc0NjY2OTUyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='../../../cdn-cgi/challenge-platform/h/b/scripts/jsd/701fd2559006/maind41d.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"93c55a792a5309f4","version":"2025.4.0-1-g37f21b1","r":1,"serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"e2e296138d64407b8469055f5cbf0b42","b":1}' crossorigin="anonymous"></script>
+    <script src="js/login.js"></script>
+  
 </body>
 
 <!-- Mirrored from htmldesigntemplates.com/html/hotux/bootstrap5/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 May 2025 02:00:17 GMT -->
