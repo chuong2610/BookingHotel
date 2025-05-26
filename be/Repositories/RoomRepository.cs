@@ -1,21 +1,28 @@
 using BookingHotel.Data;
 using BookingHotel.Interfaces;
-using BookingHotel.Models;
-using Microsoft.EntityFrameworkCore;
+using BookingHotel.Models.DTO;
+
 
 namespace BookingHotel.Repositories
 {
-    public class RoomRepository : IRoomRepository
+    // Repositories/RoomRepository.cs
+public class RoomRepository : IRoomRepository
+{
+    private readonly ApplicationDbContext _context;
+
+    public RoomRepository(ApplicationDbContext context)
     {
-        private readonly ApplicationDBContext _context;
-        public RoomRepository(ApplicationDBContext context)
-        {
-            _context = context;
-        }
-        public async Task<IEnumerable<Room>> GetAllRooms()
-        {
-            return await _context.Rooms.ToListAsync();
-        }
+        _context = context;
     }
+
+    public async Task<Room> CreateAsync(Room room)
+    {
+        _context.Rooms.Add(room);
+        await _context.SaveChangesAsync();
+        return room;
+    }
+    
+    // Implement other methods...
+}
 
 }
