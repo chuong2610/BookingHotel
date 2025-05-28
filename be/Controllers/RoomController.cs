@@ -5,78 +5,168 @@ using System.Threading.Tasks;
 
 namespace BookingHotel.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class RoomController : ControllerBase
+[ApiController]
+public class RoomsController : ControllerBase
+{
+    private readonly IRoomRepository _roomRepository;
+    private readonly ILogger<RoomsController> _logger;
+
+    public RoomsController(
+        IRoomRepository roomRepository,
+        ILogger<RoomsController> logger)
     {
-        private readonly IRoomService _roomService;
+        _roomRepository = roomRepository;
+        _logger = logger;
+    }
 
-        public RoomController(IRoomService roomService)
+    // GET: api/Rooms
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<RoomResponseDTO>>> GetAllRooms()
+    {
+        try
         {
-            _roomService = roomService;
+            var rooms = await _roomRepository.GetAllRoomsAsync();
+            var roomDtos = rooms.Select(r => new RoomResponseDTO
+            {
+                Id = r.Id,
+                RoomNumber = r.RoomNumber,
+                RoomTypeId = r.RoomTypeId,
+            //    ImageUrls = r.Images?.Select(i => i.Url).ToList() ?? new List<string>()
+            }).ToList();
+
+            return Ok(roomDtos);
         }
-
-        // GET: api/Room
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomResponseDTO>>> GetAllRooms()
+        catch (Exception ex)
         {
-            var rooms = await _roomService.GetAllRoomsAsync();
-            return Ok(rooms);
+            _logger.LogError(ex, "Error getting all rooms");
+            return StatusCode(500, "Internal server error");
         }
+    }
 
-        // GET: api/Room/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RoomResponseDTO>> GetRoomById(int id)
+    // GET: api/Rooms/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<RoomResponseDTO>> GetRoom(int id)
+    {
+        try
         {
-            var room = await _roomService.GetRoomByIdAsync(id);
-            
+            var room = await _roomRepository.GetRoomByIdAsync(id);
+
             if (room == null)
             {
                 return NotFound();
             }
-            
-            return Ok(room);
-        }
 
-        // POST: api/Room
-        [HttpPost]
-        public async Task<ActionResult<RoomResponseDTO>> CreateRoom(RoomRequestDTO roomDTO)
-        {
-            if (!ModelState.IsValid)
+            var roomDto = new RoomResponseDTO
             {
-                return BadRequest(ModelState);
+                Id = room.Id,
+                RoomNumber = room.RoomNumber,
+                RoomTypeId = room.RoomTypeId,
+               // ImageUrls = room.Images?.Select(i => i.Url).ToList() ?? new List<string>()
+            };
+
+            return Ok(roomDto);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error getting room with id {id}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    // POST: api/Rooms
+    [HttpPost]
+    public async Task<ActionResult<RoomResponseDTO>> CreateRoom(RoomDTO roomDto)
+    {
+        try
+        {
+            if (await _roomRepository.RoomNumberExistsAsync(roomDto.RoomNumber))
+            {
+                return BadRequest("Room number already exists");
             }
 
-            var createdRoom = await _roomService.CreateRoomAsync(roomDTO);
-            return CreatedAtAction(nameof(GetRoomById), new { id = createdRoom.Id }, createdRoom);
-        }
+            var room = new Models.Room
+            {
+                RoomNumber = roomDto.RoomNumber,
+                RoomTypeId = roomDto.RoomTypeId
+            };
 
-        // PUT: api/Room/{id}
-        [HttpPut("{id}")]
-        public async Task<ActionResult<RoomResponseDTO>> UpdateRoom(int id, RoomRequestDTO roomDTO)
+            var createdRoom = await _roomRepository.CreateRoomAsync(room);
+
+            var responseDto = new RoomResponseDTO
+            {
+                Id = createdRoom.Id,
+                RoomNumber = createdRoom.RoomNumber,
+                RoomTypeId = createdRoom.RoomTypeId,
+            //    RoomTypeName = createdRoom.RoomType?.Name,
+            //    ImageUrls = createdRoom.Images?.Select(i => i.Url).ToList() ?? new List<string>()
+            };
+
+            return CreatedAtAction(nameof(GetRoom), new { id = responseDto.Id }, responseDto);
+        }
+        catch (Exception ex)
         {
-            var updatedRoom = await _roomService.UpdateRoomAsync(id, roomDTO);
-            
+            _logger.LogError(ex, "Error creating room");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    // PUT: api/Rooms/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateRoom(int id, RoomDTO roomDto)
+    {
+        try
+        {
+            var existingRoom = await _roomRepository.GetRoomByIdAsync(id);
+            if (existingRoom == null)
+            {
+                return NotFound();
+            }
+
+            // Check if room number is being changed to one that already exists
+            if (existingRoom.RoomNumber != roomDto.RoomNumber && 
+                await _roomRepository.RoomNumberExistsAsync(roomDto.RoomNumber))
+            {
+                return BadRequest("Room number already exists");
+            }
+
+            existingRoom.RoomNumber = roomDto.RoomNumber;
+            existingRoom.RoomTypeId = roomDto.RoomTypeId;
+
+            var updatedRoom = await _roomRepository.UpdateRoomAsync(id, existingRoom);
             if (updatedRoom == null)
             {
                 return NotFound();
             }
-            
-            return Ok(updatedRoom);
-        }
 
-        // DELETE: api/Room/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoom(int id)
+            return NoContent();
+        }
+        catch (Exception ex)
         {
-            var result = await _roomService.DeleteRoomAsync(id);
-            
-            if (!result)
+            _logger.LogError(ex, $"Error updating room with id {id}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    // DELETE: api/Rooms/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteRoom(int id)
+    {
+        try
+        {
+            var room = await _roomRepository.DeleteRoomAsync(id);
+            if (room == null)
             {
                 return NotFound();
             }
-            
+
             return NoContent();
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error deleting room with id {id}");
+            return StatusCode(500, "Internal server error");
+        }
     }
+}
 }

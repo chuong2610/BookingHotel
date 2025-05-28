@@ -62,7 +62,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService>();
-
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //builder.Services.AddScoped<IRoomService, RoomService>();
 // builder.Services.Configure<FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
 builder.Services.Configure<FormOptions>(option =>
