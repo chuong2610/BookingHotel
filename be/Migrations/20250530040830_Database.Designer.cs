@@ -4,6 +4,7 @@ using BookingHotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingHotel.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250530040830_Database")]
+    partial class Database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,12 +115,12 @@ namespace BookingHotel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomTypeId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomTypeId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Images");
                 });
@@ -218,6 +221,9 @@ namespace BookingHotel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -226,6 +232,9 @@ namespace BookingHotel.Migrations
 
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
+
+                    b.Property<DateOnly>("dateAvailable")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -242,17 +251,14 @@ namespace BookingHotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ChildrenAllowed")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaxOccupancy")
+                    b.Property<int>("EmptyRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfBed")
+                    b.Property<int>("MaxOccupancy")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -347,13 +353,13 @@ namespace BookingHotel.Migrations
 
             modelBuilder.Entity("BookingHotel.Models.Image", b =>
                 {
-                    b.HasOne("BookingHotel.Models.RoomType", "RoomType")
+                    b.HasOne("BookingHotel.Models.Room", "Room")
                         .WithMany("Images")
-                        .HasForeignKey("RoomTypeId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("RoomType");
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("BookingHotel.Models.Paymet", b =>
@@ -427,12 +433,12 @@ namespace BookingHotel.Migrations
             modelBuilder.Entity("BookingHotel.Models.Room", b =>
                 {
                     b.Navigation("BookingRooms");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("BookingHotel.Models.RoomType", b =>
                 {
-                    b.Navigation("Images");
-
                     b.Navigation("Rooms");
                 });
 

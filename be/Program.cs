@@ -67,7 +67,10 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .WithOrigins("http://127.0.0.1:5501") // URL của frontend
+                //.WithOrigins("http://127.0.0.1:5501", "") // URL của frontend
+                .SetIsOriginAllowed(origin =>
+                    origin.StartsWith("http://127.0.0.1:5501") ||
+                    origin.StartsWith("https://app.swaggerhub.com"))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
@@ -81,7 +84,9 @@ builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IEmailService,EmailService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
+builder.Services.AddScoped<IRoomTypeService, RoomService>();
 // builder.Services.Configure<FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
 builder.Services.Configure<FormOptions>(option =>
 { 

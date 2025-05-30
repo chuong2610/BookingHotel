@@ -6,8 +6,8 @@ namespace BookingHotel.Models{
         [Key]
         public int Id { get; set; }
         public string Img { get; set; } = string.Empty;
-        public int RoomId { get; set; }
-        [ForeignKey("RoomId")]
-        public Room Room { get; set; } = new Room();
+        public int RoomTypeId { get; set; }
+        [ForeignKey("RoomTypeId")]
+        public RoomType RoomType { get; set; } = new RoomType();
     }
 }

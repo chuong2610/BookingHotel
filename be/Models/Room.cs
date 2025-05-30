@@ -7,8 +7,9 @@ namespace BookingHotel.Models{
         [Key]
         public int Id { get; set; }
         public int RoomNumber { get; set; } 
-        public List<Image> Images { get; set; } = new List<Image>();
-        public List<Booking> Bookings { get; set; } = new List<Booking>();
+        public string Description { get; set; } = string.Empty;
+        public int Rating { get; set; }
+        public List<BookingRoom> BookingRooms { get; set; } = new List<BookingRoom>();
         public int RoomTypeId { get; set; }
         [ForeignKey("RoomTypeId")]
         public RoomType RoomType { get; set; } = new RoomType();

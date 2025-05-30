@@ -14,7 +14,7 @@ namespace BookingHotel.Models
         public string Status { get; set; } = string.Empty;
         public Paymet Paymet { get; set; } = new Paymet();
         public Review Review { get; set; } = new Review();
-        public List<Room> Rooms { get; set; } = new List<Room>();
+        public List<BookingRoom> BookingRooms { get; set; } = new List<BookingRoom>();
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; } = new User();

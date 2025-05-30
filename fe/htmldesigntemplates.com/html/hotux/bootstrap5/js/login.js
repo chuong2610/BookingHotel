@@ -18,8 +18,9 @@ const API_URL = 'http://localhost:5178/api';
             data: JSON.stringify({ email, password }),
             success: function(response) {
                 console.log('Login successful:', response);
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('user', JSON.stringify(response.user));
+                localStorage.setItem('token', response);
+                // localStorage.setItem('user', JSON.stringify(response.user));
+                updateHeaderUI(true);
                 window.location.href = 'index.html';
             },
             error: function(xhr, status, error) {
@@ -184,7 +185,7 @@ function updateHeaderUI(isLoggedIn, user = null) {
     const userMenu = document.getElementById('userMenu');
     const userName = document.getElementById('userName');
 
-    if (isLoggedIn && user) {
+    if (isLoggedIn ) {
         // Ẩn nút đăng nhập/đăng ký
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';

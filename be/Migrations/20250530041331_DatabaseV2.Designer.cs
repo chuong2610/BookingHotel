@@ -4,6 +4,7 @@ using BookingHotel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingHotel.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250530041331_DatabaseV2")]
+    partial class DatabaseV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,6 +221,9 @@ namespace BookingHotel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -226,6 +232,9 @@ namespace BookingHotel.Migrations
 
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
+
+                    b.Property<DateOnly>("dateAvailable")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -242,17 +251,14 @@ namespace BookingHotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ChildrenAllowed")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaxOccupancy")
+                    b.Property<int>("EmptyRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfBed")
+                    b.Property<int>("MaxOccupancy")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")

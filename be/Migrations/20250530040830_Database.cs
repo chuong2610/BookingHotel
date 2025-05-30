@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookingHotel.Migrations
 {
     /// <inheritdoc />
-    public partial class DatabaseV1 : Migration
+    public partial class Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,9 @@ namespace BookingHotel.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EmptyRooms = table.Column<int>(type: "int", nullable: false),
+                    MaxOccupancy = table.Column<int>(type: "int", nullable: false),
+                    SummaryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -88,6 +91,10 @@ namespace BookingHotel.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomNumber = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    dateAvailable = table.Column<DateOnly>(type: "date", nullable: false),
                     RoomTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -146,24 +153,24 @@ namespace BookingHotel.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookingRoom",
+                name: "BookingRooms",
                 columns: table => new
                 {
-                    BookingsId = table.Column<int>(type: "int", nullable: false),
-                    RoomsId = table.Column<int>(type: "int", nullable: false)
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    BookingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookingRoom", x => new { x.BookingsId, x.RoomsId });
+                    table.PrimaryKey("PK_BookingRooms", x => new { x.BookingId, x.RoomId });
                     table.ForeignKey(
-                        name: "FK_BookingRoom_Bookings_BookingsId",
-                        column: x => x.BookingsId,
+                        name: "FK_BookingRooms_Bookings_BookingId",
+                        column: x => x.BookingId,
                         principalTable: "Bookings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookingRoom_Rooms_RoomsId",
-                        column: x => x.RoomsId,
+                        name: "FK_BookingRooms_Rooms_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -221,9 +228,9 @@ namespace BookingHotel.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingRoom_RoomsId",
-                table: "BookingRoom",
-                column: "RoomsId");
+                name: "IX_BookingRooms_RoomId",
+                table: "BookingRooms",
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
@@ -267,7 +274,7 @@ namespace BookingHotel.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookingRoom");
+                name: "BookingRooms");
 
             migrationBuilder.DropTable(
                 name: "Hotels");
