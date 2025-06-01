@@ -23,58 +23,116 @@ function saveBookingInfo() {
 
     // Lưu vào localStorage
     localStorage.setItem('roomListInfo', JSON.stringify(roomListInfo));
-    // console.log('Saved booking info:', bookingInfo); // Debug log
 }
 
-// Hàm load thông tin đặt phòng từ localStorage
-// function loadBookingInfo() {
-//     // Lấy thông tin từ localStorage
-//     const savedInfo = localStorage.getItem('bookingInfo');
-//     if (savedInfo) {
-//         const bookingInfo = JSON.parse(savedInfo);
-//         console.log('Loading booking info:', bookingInfo); // Debug log
-        
-//         // Set room types
-//         if (bookingInfo.roomTypes && bookingInfo.roomTypes.length > 0) {
-//             // Duyệt qua tất cả các checkbox
-//             $('.room-type input[type="checkbox"]').each(function() {
-//                 // Lấy text của label
-//                 const label = $(this).closest('.pretty').find('label').text().trim();
-//                 // Nếu label nằm trong danh sách đã lưu thì check vào
-//                 if (bookingInfo.roomTypes.includes(label)) {
-//                     $(this).prop('checked', true);
-//                 }
-//             });
-//         }
+// Hàm gọi API lấy danh sách phòng
+async function fetchRooms() {
+    try {
+        // Lấy thông tin từ localStorage
+        const savedInfo = localStorage.getItem('roomListInfo');
+        let requestBody = {
+            codes: [],
+            minPricePerNight: 0,
+            maxPricePerNight: 2000
+        };
 
-//         // Set price range
-//         if (bookingInfo.minPricePerNight) {
-//             $('.range-slider-ui .min-value').text(bookingInfo.minPricePerNight + ' $');
-//         }
-//         if (bookingInfo.maxPricePerNight) {
-//             $('.range-slider-ui .max-value').text(bookingInfo.maxPricePerNight + ' $');
-//         }
-//     }
-// }
+        if (savedInfo) {
+            const roomListInfo = JSON.parse(savedInfo);
+            requestBody.codes = roomListInfo.roomTypes;
+            requestBody.minPricePerNight = parseInt(roomListInfo.minPricePerNight) || 0;
+            requestBody.maxPricePerNight = parseInt(roomListInfo.maxPricePerNight) || 2000;
+        }
+
+        // Gọi API
+        const response = await fetch('http://localhost:5178/api/RoomType/available', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const rooms = await response.json();
+        displayRooms(rooms);
+    } catch (error) {
+        console.error('Error fetching rooms:', error);
+    }
+}
+
+// Hàm hiển thị danh sách phòng
+function displayRooms(rooms) {
+    const roomListContainer = $('.list-grid');
+    roomListContainer.empty(); // Xóa nội dung cũ
+
+    rooms.forEach(room => {
+        const roomHtml = `
+            <div class="room-grid">
+                <div class="grid-image">
+                    <img src="${room.img}" alt="${room.name}" />
+                </div>
+                <div class="grid-content">
+                    <div class="room-title">
+                        <h4>${room.name}</h4>
+                        <p class="mar-top-5"><i class="fa fa-tag"></i> $${room.pricePerNight}/Night</p>
+                        <div class="deal-rating">
+                            ${generateRatingStars(room.rating)}
+                        </div>
+                    </div>
+                    <div class="room-detail">
+                        <p>${room.summaryDescription}</p>
+                    </div>
+                    <div class="room-services">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="fa fa-bed" aria-hidden="true"></i> Max Occupancy: ${room.maxOccupancy}
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <i class="fa fa-child" aria-hidden="true"></i> Children Allowed: ${room.childrenAllowed}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-btn mar-top-20">
+                        <a href="#" class="btn btn-black mar-right-10">VIEW DETAILS</a>
+                        <a href="#" class="btn btn-orange">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+        `;
+        roomListContainer.append(roomHtml);
+    });
+}
+
+// Hàm tạo HTML cho rating stars
+function generateRatingStars(rating) {
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            starsHtml += '<span class="fa fa-star checked"></span>';
+        } else {
+            starsHtml += '<span class="fa fa-star"></span>';
+        }
+    }
+    return starsHtml;
+}
 
 // Đợi document ready
 $(document).ready(function() {
-    console.log('Document ready - Initializing roomlist.js'); // Debug log
-    
-    // Load thông tin đã lưu khi trang được tải
-    // setTimeout(function() {
-    //     loadBookingInfo();
-    // }, 500);
+    // Load danh sách phòng khi trang được tải
+    fetchRooms();
 
     // Thêm event listener cho room type checkboxes
     $('.room-type input[type="checkbox"]').on('change', function() {
-        console.log('Checkbox changed:', $(this).closest('.pretty').find('label').text().trim()); // Debug log
         saveBookingInfo();
+        fetchRooms(); // Cập nhật lại danh sách phòng khi thay đổi filter
     });
 
     // Thêm event listener cho price range slider
     $('.range-slider-ui').on('slidechange', function() {
-        console.log('Price range changed'); // Debug log
         saveBookingInfo();
+        fetchRooms(); // Cập nhật lại danh sách phòng khi thay đổi filter
     });
 }); 
