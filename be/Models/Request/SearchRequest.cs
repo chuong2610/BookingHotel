@@ -6,7 +6,7 @@ namespace BookingHotel.Models.Request
         public DateTime? CheckOutDate { get; set; }
         public int? NumberOfAdults { get; set; }
         public int? NumberOfChildren { get; set; }
-        public int? NumberOfBed { get; set; }
+        public List<string>? Codes { get; set; } 
         public int? MinPricePerNight { get; set; }
         public int? MaxPricePerNight { get; set; }
 

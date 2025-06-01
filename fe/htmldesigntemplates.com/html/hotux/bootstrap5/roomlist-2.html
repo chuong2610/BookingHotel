@@ -289,7 +289,13 @@
                 <div class="pretty p-default p-thick p-pulse mar-bottom-15">
                   <input type="checkbox" />
                   <div class="state p-warning-o">
-                    <label>Studio Rooms</label>
+                    <label> Twin rooms</label>
+                  </div>
+                </div>
+                <div class="pretty p-default p-thick p-pulse mar-bottom-15">
+                  <input type="checkbox" />
+                  <div class="state p-warning-o">
+                    <label> Quad rooms</label>
                   </div>
                 </div>
                 <div class="pretty p-default p-thick p-pulse mar-bottom-15">
@@ -304,18 +310,7 @@
                     <label>Presidentsuite Rooms</label>
                   </div>
                 </div>
-                <div class="pretty p-default p-thick p-pulse mar-bottom-15">
-                  <input type="checkbox" />
-                  <div class="state p-warning-o">
-                    <label>Murphy Rooms</label>
-                  </div>
-                </div>
-                <div class="pretty p-default p-thick p-pulse">
-                  <input type="checkbox" />
-                  <div class="state p-warning-o">
-                    <label>Connecting Rooms</label>
-                  </div>
-                </div>
+      
               </div>
               <div class="price list-sidebar-item">
                 <h4>Price</h4>
@@ -336,7 +331,7 @@
                   <div class="clearfix"></div>
                 </div>
               </div>
-              <div class="ratings list-sidebar-item">
+              <!-- <div class="ratings list-sidebar-item">
                 <h4>Ratings</h4>
                 <div class="pretty p-default p-thick p-pulse mar-bottom-15">
                   <input type="checkbox" />
@@ -444,7 +439,7 @@
                     <label>Luggage Storage </label>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="info-1 list-sidebar-item">
                 <i class="fa fa-phone-volume"></i>
                 <h5>Need help? Call us</h5>
@@ -558,32 +553,8 @@
     <script src="js/main.js"></script>
     <script src="js/custom-nav.js"></script>
     <script src="js/load-components.js"></script>
-    <script>
-      $(document).ready(function() {
-        // Khởi tạo datepicker cho Check In và Check Out
-        $("#date-range2, #date-range3").datepicker({
-          dateFormat: 'dd/mm/yy',
-          minDate: 0,
-          beforeShow: function(input, inst) {
-            // Đảm bảo datepicker hiển thị đúng vị trí
-            setTimeout(function() {
-              inst.dpDiv.css({
-                top: $(input).offset().top + $(input).outerHeight(),
-                left: $(input).offset().left
-              });
-            }, 0);
-          }
-        });
+    <script src="js/roomlist.js"></script>
 
-        // Khi chọn ngày Check In, cập nhật minDate cho Check Out
-        $("#date-range2").on('change', function() {
-          var checkInDate = $(this).datepicker('getDate');
-          if (checkInDate) {
-            $("#date-range3").datepicker('option', 'minDate', checkInDate);
-          }
-        });
-      });
-    </script>
   </body>
 
 <!-- Mirrored from htmldesigntemplates.com/html/hotux/bootstrap5/roomlist-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 May 2025 01:59:19 GMT -->

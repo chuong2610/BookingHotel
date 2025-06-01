@@ -12,7 +12,7 @@ namespace BookingHotel.Interfaces
             DateTime checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
-            int? numberOfBed = null,
+            List<string>? codes = null,
             decimal? minPricePerNight = null,
             decimal? maxPricePerNight = null
             );

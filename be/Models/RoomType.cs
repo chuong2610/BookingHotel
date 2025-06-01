@@ -6,7 +6,7 @@ namespace BookingHotel.Models{
         public int Id { get; set; }
         public string Type { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public int NumberOfBed { get; set; }
+        public string Code { get; set; } = string.Empty;
         public int MaxOccupancy { get; set; }
         public int ChildrenAllowed { get; set; }
         public string SummaryDescription { get; set; } = string.Empty;

@@ -63,7 +63,7 @@ namespace BookingHotel.Controllers
                     searchRequest.CheckOutDate.Value,
                     searchRequest.NumberOfAdults,
                     searchRequest.NumberOfChildren,
-                    searchRequest.NumberOfBed,
+                    searchRequest.Codes,
                     searchRequest.MinPricePerNight,
                     searchRequest.MaxPricePerNight
                 );

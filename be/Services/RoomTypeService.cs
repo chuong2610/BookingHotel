@@ -42,7 +42,7 @@ namespace BookingHotel.Services
                 Rating = (int)roomType.Rooms.Average(r => r.Rating),
                 Description = roomType.Description,
                 PricePerNight = (int)roomType.Price,
-                NumberOfBed = roomType.NumberOfBed,
+                Code = roomType.Code,
                 MaxOccupancy = roomType.MaxOccupancy,
                 ChildrenAllowed = roomType.ChildrenAllowed,
                 EmptyRooms = emptyRoomsCount 
@@ -54,12 +54,12 @@ namespace BookingHotel.Services
             DateTime checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
-            int? numberOfBed = null,
+            List<string>? codes = null,
             decimal? minPricePerNight = null,
             decimal? maxPricePerNight = null
             )
         {
-            var availableRoomTypes = await _roomTypeRepository.GetAvailableRoomTypes(checkIn, checkOut, requiredPeople, childrenAllowed, numberOfBed, minPricePerNight, maxPricePerNight);
+            var availableRoomTypes = await _roomTypeRepository.GetAvailableRoomTypes(checkIn, checkOut, requiredPeople, childrenAllowed, codes, minPricePerNight, maxPricePerNight);
             return availableRoomTypes.Select(rt => MapToRoomDTO(rt)).ToList();
         }
 

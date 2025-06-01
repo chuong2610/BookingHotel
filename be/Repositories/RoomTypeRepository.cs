@@ -36,7 +36,7 @@ namespace BookingHotel.Repositories
             DateTime checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
-            int? numberOfBed = null,
+            List<string>? codes = null,
             decimal? minPricePerNight = null,
             decimal? maxPricePerNight = null
             )
@@ -68,10 +68,10 @@ namespace BookingHotel.Repositories
                 availableRoomTypesQuery = availableRoomTypesQuery
                     .Where(rt => rt.ChildrenAllowed >= childrenAllowed.Value);
             }
-            if (numberOfBed.HasValue)
+            if (codes != null && codes.Any())
             {
                 availableRoomTypesQuery = availableRoomTypesQuery
-                    .Where(rt => rt.NumberOfBed == numberOfBed.Value);
+                    .Where(rt => codes.Contains(rt.Code));
             }
 
             if (minPricePerNight.HasValue)

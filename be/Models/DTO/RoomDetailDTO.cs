@@ -8,7 +8,7 @@ namespace BookingHotel.Models.DTO
         public int Rating { get; set; }
         public string Description { get; set; } = string.Empty;
         public int PricePerNight { get; set; }
-        public int NumberOfBed { get; set; }
+        public string Code { get; set; } = string.Empty;
         public int MaxOccupancy { get; set; }
         public int ChildrenAllowed { get; set; }
         public int EmptyRooms { get; set; }
