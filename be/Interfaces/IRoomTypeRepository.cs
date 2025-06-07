@@ -7,8 +7,8 @@ namespace BookingHotel.Interfaces
         Task<List<RoomType>> GetAllRoomTypes();
         Task<RoomType?> GetRoomTypeById(int id);
         Task<List<RoomType>> GetAvailableRoomTypes(
-            DateTime checkIn,
-            DateTime checkOut,
+            DateTime? checkIn,
+            DateTime? checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
             List<string>? codes = null,

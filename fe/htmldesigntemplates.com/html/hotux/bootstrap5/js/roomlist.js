@@ -45,19 +45,21 @@ async function fetchRooms() {
 
         // Gọi API
         const response = await fetch('http://localhost:5178/api/RoomType/available', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody)
+});
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+if (!response.ok) {
+    throw new Error('Network response was not ok');
+}
 
-        const rooms = await response.json();
-        displayRooms(rooms);
+const result = await response.json();
+const rooms = result.data || [];
+console.log('Fetched rooms:', rooms);
+displayRooms(rooms);
     } catch (error) {
         console.error('Error fetching rooms:', error);
     }

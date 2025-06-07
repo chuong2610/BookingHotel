@@ -8,8 +8,8 @@ namespace BookingHotel.Interfaces
         Task<List<RoomDTO>> GetAllRooms();
         Task<RoomDetailDTO> GetRoomById(int id);
         Task<List<RoomDTO>> GetAvailableRooms(
-             DateTime checkIn,
-            DateTime checkOut,
+            DateTime? checkIn,
+            DateTime? checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
             List<string>? codes = null,

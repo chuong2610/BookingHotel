@@ -9,6 +9,7 @@ namespace BookingHotel.Models.Request
         public List<string>? Codes { get; set; } 
         public int? MinPricePerNight { get; set; }
         public int? MaxPricePerNight { get; set; }
+        
 
     }
 }

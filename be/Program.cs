@@ -110,6 +110,7 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("AllowSpecificOrigins");
+app.UseStaticFiles();
 
 var summaries = new[]
 {

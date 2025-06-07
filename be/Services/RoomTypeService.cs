@@ -38,7 +38,7 @@ namespace BookingHotel.Services
             {
                 Name = roomType.Type,
                 SummaryDescription = roomType.SummaryDescription,
-                Imgs = roomType.Images.Select(i => i.Img).ToList(),
+                Imgs = roomType.Images.Select(i => "http://localhost:5178/uploads/" + i.Img).ToList(),
                 Rating = (int)roomType.Rooms.Average(r => r.Rating),
                 Description = roomType.Description,
                 PricePerNight = (int)roomType.Price,
@@ -50,8 +50,8 @@ namespace BookingHotel.Services
         }
 
         public async Task<List<RoomDTO>> GetAvailableRooms(
-            DateTime checkIn,
-            DateTime checkOut,
+            DateTime? checkIn,
+            DateTime? checkOut,
             int? requiredPeople = null,
             int? childrenAllowed = null,
             List<string>? codes = null,
@@ -71,7 +71,7 @@ namespace BookingHotel.Services
                 Id = roomType.Id,
                 Name = roomType.Type,
                 SummaryDescription = roomType.SummaryDescription,
-                Img = roomType.Images.FirstOrDefault()?.Img ?? string.Empty,
+                Img ="http://localhost:5178/uploads/"+ roomType.Images.FirstOrDefault()?.Img ?? string.Empty,
                 Rating = (int)roomType.Rooms.Average(r => r.Rating),
                 PricePerNight = (int)roomType.Price,
                 MaxOccupancy = roomType.MaxOccupancy,

@@ -51,22 +51,23 @@ namespace BookingHotel.Controllers
         [HttpPost("available")]
         public async Task<ActionResult<List<RoomDTO>>> GetAvailableRooms([FromBody] SearchRequest searchRequest)
         {
-           try
+            try
             {
-                if (searchRequest.CheckInDate == null || searchRequest.CheckOutDate == null)
-                {
-                    return BadRequest(new BaseResponse<string>(false, "Vui lòng cung cấp ngày nhận phòng và trả phòng", null));
-                }
+
 
                 var availableRooms = await _roomTypeService.GetAvailableRooms(
-                    searchRequest.CheckInDate.Value,
-                    searchRequest.CheckOutDate.Value,
+                    searchRequest.CheckInDate,
+                    searchRequest.CheckOutDate,
                     searchRequest.NumberOfAdults,
                     searchRequest.NumberOfChildren,
                     searchRequest.Codes,
                     searchRequest.MinPricePerNight,
                     searchRequest.MaxPricePerNight
-                );
+            );
+            if (availableRooms == null || !availableRooms.Any())
+            {
+                return NotFound(new { success = false, message = "Không tìm thấy phòng phù hợp", data = (object?)null });
+            }
 
                 return Ok(new BaseResponse<List<RoomDTO>>(true, "Lấy danh sách phòng trống thành công", availableRooms));
             }
@@ -77,6 +78,8 @@ namespace BookingHotel.Controllers
         }
 
 
-        
+
+
+
     }
 }
